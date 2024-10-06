@@ -1,0 +1,23 @@
+.cast-card {
+  color: white;
+  font-size: small;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  margin: 15px;
+  padding: 15px;
+  transition: transform 0.3s;
+
+  flex-wrap: wrap;
+
+}
+
+.cast-card img {
+  max-width: 20rem;
+}
+
+p{
+  padding: 5px;
+  text-align: left;
+  font-size: medium;
+}
