@@ -16,14 +16,14 @@ const MovieCard = (props) => {
                         movie.
                             poster_path
                             !== "N/A"
-                            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : "#"
+                            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : ""
                     }
                     alt={movie.title}
                 />
             </div>
             <div>
                 <span>{movie.title}</span>
-                <h3>{movie.vote_average}</h3>
+                <h3>{movie.vote_average.toFixed(1)}</h3>
             </div>
         </div>
     )

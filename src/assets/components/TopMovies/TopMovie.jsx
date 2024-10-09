@@ -3,14 +3,18 @@ import axios from 'axios';
 import "./styles.css";
 import { useNavigate } from 'react-router-dom';
 import MovieCard from '../MovieCard/MovieCard';
+import Loading from '../Loading/loading';
 
-const TopMovie = () => {
+const TopMovie = ({ search }) => {
     const [topMovies, setTopMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const moviesPerPage = 9;
+
+    console.log(search);
+
 
 
     const indexOfLastMovie = currentPage * moviesPerPage;
@@ -25,17 +29,23 @@ const TopMovie = () => {
         try {
             let response = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_KEY}&language=en-US&page=1`);
             setTopMovies(response.data.results);
-            setLoading(false);
         } catch (err) {
             console.log(err);
             setError("Failed to fetch top-rated movies");
-            setLoading(false);
         }
     };
 
     useEffect(() => {
         fetchTopMovies();
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000)
     }, []);
+
+    if (loading) {
+        return <Loading />
+    }
 
     const handleMovieClick = (id) => {
         navigate(`/${id}`);
@@ -43,34 +53,28 @@ const TopMovie = () => {
 
     return (
         <>
-            {loading ? (
-                <p>Loading...</p>
-            ) : error ? (
-                <p>{error}</p>
-            ) : (
-                <div className="app">
-                    <ul className="container">
-                        {currentMovies.map(movie => (
-                            <li
-                                key={movie.id}
-                                onClick={() => handleMovieClick(movie.id)}
-                                style={{ listStyle: 'none', cursor: 'pointer' }}
-                            >
-                                <MovieCard movie={movie} />
-                            </li>
-                        ))}
-                    </ul>
-                    <div className="pagination">
-                        <button onClick={prevPage} disabled={currentPage === 1}>
-                            Previous
-                        </button>
-                        <span>Page {currentPage}</span>
-                        <button onClick={nextPage} disabled={indexOfLastMovie >= topMovies.length}>
-                            Next
-                        </button>
-                    </div>
+            {error}?{error}:<div className="app">
+                <ul className="container">
+                    {currentMovies.map(movie => (
+                        <li
+                            key={movie.id}
+                            onClick={() => handleMovieClick(movie.id)}
+                            style={{ listStyle: 'none', cursor: 'pointer' }}
+                        >
+                            <MovieCard movie={movie} />
+                        </li>
+                    ))}
+                </ul>
+                <div className="pagination">
+                    <button onClick={prevPage} disabled={currentPage === 1}>
+                        Previous
+                    </button>
+                    <span>Page {currentPage}</span>
+                    <button onClick={nextPage} disabled={indexOfLastMovie >= topMovies.length}>
+                        Next
+                    </button>
                 </div>
-            )}
+            </div>
         </>
     );
 };

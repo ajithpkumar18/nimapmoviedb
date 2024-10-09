@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Cast from '../Cast/Cast';
 import "./styles.css";
+import Loading from '../Loading/loading';
 
 const SingleMovie = () => {
     const { id } = useParams();
     const [casts, setCast] = useState([]);
     const [movie, setMovie] = useState({});
+    const [loading, setLoading] = useState(true);
     let formattedDate;
 
     const fetchCast = async () => {
@@ -36,9 +38,20 @@ const SingleMovie = () => {
         formattedDate = date.toLocaleDateString('en-GB', options);
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 2000)
+
+
+    }, [])
+
+
     return (
         <>
-            {movie ? (
+            {loading ? (
+                <Loading />
+            ) : (
                 <div className="contain">
                     <div className="banner">
                         <div className="movie-details">
@@ -75,8 +88,6 @@ const SingleMovie = () => {
                         ))}
                     </div>
                 </div>
-            ) : (
-                <p>Movie not found.</p>
             )}
         </>
     );

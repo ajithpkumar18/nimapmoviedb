@@ -11,7 +11,7 @@ const Search = ({ onSubmit }) => {
 
     const handleSubmit = () => {
         if (onSubmit) {
-            onSubmit(value);  // Call onSubmit prop when the user clicks the search button
+            onSubmit(value);
         }
         console.log(value);
 
@@ -23,10 +23,10 @@ const Search = ({ onSubmit }) => {
                 type="text"
                 name="search"
                 value={value}
-                onChange={handleChange}  // Pass the event to handleChange
+                onChange={handleChange}
                 placeholder="Search for movies"
             />
-            <button onClick={handleSubmit}>Search</button> {/* Trigger the search on click */}
+            <button onClick={handleSubmit}>Search</button>
         </div>
     );
 };

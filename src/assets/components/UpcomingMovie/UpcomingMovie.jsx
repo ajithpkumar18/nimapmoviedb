@@ -3,6 +3,7 @@ import axios from 'axios';
 import "./styles.css";
 import { useNavigate } from 'react-router-dom';
 import MovieCard from '../MovieCard/MovieCard';
+import Loading from '../Loading/loading';
 
 const UpcomingMovie = () => {
     const [upMovies, setUpMovies] = useState([]);
@@ -25,7 +26,6 @@ const UpcomingMovie = () => {
         try {
             let response = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_KEY}&language=en-US&page=1`);
             setUpMovies(response.data.results);
-            setLoading(false);
         } catch (err) {
             console.log(err);
             setError("Failed to fetch upcoming movies.");
@@ -35,6 +35,10 @@ const UpcomingMovie = () => {
 
     useEffect(() => {
         fetchUpcomingMovies();
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000)
     }, []);
 
     const handleMovieClick = (id) => {
@@ -44,9 +48,7 @@ const UpcomingMovie = () => {
     return (
         <>
             {loading ? (
-                <p>Loading...</p>
-            ) : error ? (
-                <p>{error}</p>
+                <Loading />
             ) : (
                 <div className="app">
                     <ul className="container">
@@ -54,7 +56,7 @@ const UpcomingMovie = () => {
                             <li
                                 key={movie.id}
                                 onClick={() => handleMovieClick(movie.id)}
-                                style={{ listStyle: 'none', cursor: 'pointer' }}  // Style for clickable items
+                                style={{ listStyle: 'none', cursor: 'pointer' }}
                             >
                                 <MovieCard movie={movie} />
                             </li>

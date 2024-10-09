@@ -1,0 +1,23 @@
+.loading-page{
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loading{
+    border: 5px solid;
+    border-color: rgb(0, 191, 255) white white rgb(20, 216, 251) ;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    animation: rotate 1s infinite;
+}
+
+@keyframes rotate {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}

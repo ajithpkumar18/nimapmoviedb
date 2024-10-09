@@ -60,15 +60,55 @@ h1 {
   margin-left: 1em;
 }
 
-@media (max-width: 768px) {
+.toggler-icon {
+  position: relative;
+  height: 2rem;
+  background: grey;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 10%;
+  width: 3rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggler-icon .toggler{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.toggler-icon > .toggler span{
+  content: " ";
+  background: rgb(73, 75, 76);
+  width: 2rem;
+  height: 2.5px;
+}
+
+@media (max-width: 1200px) {
   .nav {
     flex-direction: column;
     align-items: center;
   }
 
+  .logo-box{
+    width: 100%;
+  }
+
   .links-box {
-    justify-content: center;
+    display: none;
+  }
+
+  .toggler-icon{
+    display: flex;
+  }
+
+  .links-box.vertical {
+    display: flex;
     flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding: 1em 0;
   }
 
   .links ul {
